@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.fxmisc.richtext.InlineCssTextArea?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.dauphine.sde.gui.Controller">
+   <top>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar>
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <children>
+                  <Button fx:id="btnExtractRels" mnemonicParsing="false" onMouseClicked="#extractRelations" text="Extract I/O Rels" />
+                  <Button fx:id="btnExtractRelsForAll" mnemonicParsing="false" onAction="#extractRelationsForAll" text="Extract for All" />
+                  <Button fx:id="btnEvaluateRels" mnemonicParsing="false" onAction="#evaluateRelations" text="Evaluate" />
+                  <Button fx:id="btnEvaluateRelsForAll" disable="true" mnemonicParsing="false" onAction="#evaluateRelationsForAll" text="Evaluate for All" />
+                  <Separator orientation="VERTICAL" />
+                  <Button fx:id="btnRunExperiments" disable="true" mnemonicParsing="false" onAction="#runExperiments" text="Run experiments" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </top>
+   <right>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <TitledPane animated="false" text="Ontology relations parameters">
+              <content>
+                <AnchorPane>
+                     <children>
+                        <VBox spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <GridPane>
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="157.00000762939453" minWidth="10.0" prefWidth="126.99999237060547" />
+                                  <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="67.00000762939453" minWidth="33.0" prefWidth="64.00000762939453" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label text="Max super-classes" />
+                                    <Label text="Max distance" GridPane.rowIndex="1" />
+                                    <Spinner fx:id="spnMaxHierarchy" editable="true" GridPane.columnIndex="1" />
+                                    <Spinner fx:id="spnMaxDistance" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                 </children>
+                              </GridPane>
+                              <Label text="Ontology SPARQL Endpoint" underline="true" />
+                              <ComboBox fx:id="cmbSparqlEndpoint" editable="true" prefHeight="27.0" prefWidth="200.0" promptText="http://localhost:3030/" visibleRowCount="3" />
+                              <Label text="Property extraction pattern" underline="true" />
+                              <RadioButton fx:id="rdbDomRngPattern" mnemonicParsing="false" text="rdfs:domain | rdfs:range">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="propPattern" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <RadioButton fx:id="rdbOwlstcPattern" mnemonicParsing="false" selected="true" text="OWLS-TC inference" toggleGroup="$propPattern" />
+                              <Label text="Filters" underline="true" />
+                              <CheckBox fx:id="ckbFilterDCG" mnemonicParsing="false" selected="true" text="Avoid loops (DCG)" />
+                              <CheckBox fx:id="ckbFilterSameOntology" mnemonicParsing="false" text="From DBPedia only" />
+                              <HBox>
+                                 <children>
+                                    <CheckBox fx:id="ckbFilterSubClass" mnemonicParsing="false" text="Exclude " />
+                                    <Label alignment="BOTTOM_LEFT" text="rdfs:subClassOf">
+                                       <font>
+                                          <Font name="Courier" size="13.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets top="3.0" />
+                                       </padding>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </TitledPane>
+            <TitledPane animated="false" text="Text relations parameters">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox layoutX="30.0" layoutY="-56.0" prefHeight="180.0" prefWidth="259.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label text="Text Similarity Method" underline="true" />
+                              <ChoiceBox fx:id="chbTexSimtMethod" prefWidth="239.0" />
+                              <Label text="Word2Vec API endpoint" underline="true" />
+                              <TextField fx:id="tfWord2vecAPIURL" promptText="http://92.92.89.149:4567/similarity/" />
+                              <Label text="Threshold" underline="true" />
+                              <GridPane VBox.vgrow="NEVER">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" />
+                                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="27.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <TextField fx:id="tfThreshold" text="0.500" GridPane.columnIndex="1" />
+                                    <Slider fx:id="sldrThreshold" blockIncrement="0.01" majorTickUnit="0.25" max="1.0" showTickLabels="true" showTickMarks="true" value="0.5" />
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </VBox>
+                     </children></AnchorPane>
+              </content>
+            </TitledPane>
+         </children>
+      </VBox>
+   </right>
+   <bottom>
+      <HBox BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="lblLog" text="Welcome to Service Enrichment, I'm here to help you" HBox.hgrow="ALWAYS" />
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+         </BorderPane.margin>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </HBox>
+   </bottom>
+   <center>
+      <AnchorPane BorderPane.alignment="CENTER">
+         <children>
+            <TabPane prefHeight="513.0" prefWidth="306.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <tabs>
+                <Tab text="Service Overview">
+                  <content>
+                    <AnchorPane>
+                           <children>
+                              <VBox prefHeight="1192.0" prefWidth="383.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Label fx:id="lblServiceNameLbl" VBox.vgrow="NEVER">
+                                       <padding>
+                                          <Insets bottom="5.0" left="10.0" top="3.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <SplitPane dividerPositions="0.5" orientation="VERTICAL">
+                                       <items>
+                                          <TitledPane animated="false" text="Service Description">
+                                            <content>
+                                              <AnchorPane>
+                                                   <children>
+                                                      <VBox layoutX="89.0" layoutY="-62.0" prefHeight="593.0" prefWidth="358.0" spacing="3.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <children>
+                                                            <Label text="Text description" />
+                                                            <InlineCssTextArea fx:id="rtfxText" editable="false" minHeight="50.0" wrapText="true" VBox.vgrow="SOMETIMES">
+                                                               <VBox.margin>
+                                                                  <Insets left="3.0" right="2.0" />
+                                                               </VBox.margin>
+                                                            </InlineCssTextArea>
+                                                            <HBox alignment="TOP_CENTER" spacing="3.0">
+                                                               <children>
+                                                                  <VBox spacing="3.0" HBox.hgrow="ALWAYS">
+                                                                     <children>
+                                                                        <Label text="Inputs">
+                                                                           <padding>
+                                                                              <Insets left="2.0" />
+                                                                           </padding>
+                                                                           <VBox.margin>
+                                                                              <Insets />
+                                                                           </VBox.margin>
+                                                                        </Label>
+                                                                        <ListView fx:id="lvInputs">
+                                                                           <contextMenu>
+                                                                              <ContextMenu>
+                                                                                <items>
+                                                                                  <MenuItem mnemonicParsing="false" text="False" />
+                                                                                </items>
+                                                                              </ContextMenu>
+                                                                           </contextMenu></ListView>
+                                                                     </children>
+                                                                  </VBox>
+                                                                  <VBox layoutX="10.0" layoutY="10.0" spacing="3.0" HBox.hgrow="ALWAYS">
+                                                                     <children>
+                                                                        <Label text="Extracted Inputs">
+                                                                           <padding>
+                                                                              <Insets left="2.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                        <ListView fx:id="lvExtrInputs" />
+                                                                     </children>
+                                                                  </VBox>
+                                                               </children>
+                                                            </HBox>
+                                                            <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="69.0" spacing="3.0">
+                                                               <children>
+                                                                  <VBox spacing="3.0" HBox.hgrow="ALWAYS">
+                                                                     <children>
+                                                                        <Label text="Outputs">
+                                                                           <padding>
+                                                                              <Insets left="2.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                        <ListView fx:id="lvOutputs" />
+                                                                     </children>
+                                                                  </VBox>
+                                                                  <VBox layoutX="10.0" layoutY="10.0" spacing="3.0" HBox.hgrow="ALWAYS">
+                                                                     <children>
+                                                                        <Label text="Extracted Outputs">
+                                                                           <padding>
+                                                                              <Insets left="2.0" />
+                                                                           </padding>
+                                                                        </Label>
+                                                                        <ListView fx:id="lvExtrOutputs" />
+                                                                     </children>
+                                                                  </VBox>
+                                                               </children>
+                                                            </HBox>
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </AnchorPane>
+                                            </content>
+                                          </TitledPane>
+                                          <TitledPane animated="false" prefHeight="513.0" prefWidth="336.0" text="Extracted Relations">
+                                             <content>
+                                                <SplitPane dividerPositions="0.5">
+                                                   <items>
+                                                      <AnchorPane>
+                                                         <children>
+                                                            <VBox layoutX="14.0" layoutY="-80.0" prefHeight="485.0" prefWidth="163.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                               <children>
+                                                                  <Label text="Ontology relations" VBox.vgrow="ALWAYS">
+                                                                     <padding>
+                                                                        <Insets bottom="2.0" left="5.0" top="2.0" />
+                                                                     </padding>
+                                                                  </Label>
+                                                                  <AnchorPane>
+                                                                     <children>
+                                                                        <StackPane prefHeight="400.0" prefWidth="248.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                           <children>
+                                                                              <ListView fx:id="lvOntoRelations" onKeyTyped="#onOntoRelsListKeyTyped" onMouseClicked="#onOntoRelsListClicked" />
+                                                                              <ProgressIndicator fx:id="piOnto" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" prefHeight="30.0" prefWidth="30.0" visible="false" StackPane.alignment="CENTER" />
+                                                                           </children>
+                                                                        </StackPane>
+                                                                     </children>
+                                                                  </AnchorPane>
+                                                                  <Label fx:id="lblOntoInfo" VBox.vgrow="NEVER" />
+                                                               </children>
+                                                            </VBox>
+                                                         </children>
+                                                      </AnchorPane>
+                                                      <AnchorPane>
+                                                         <children>
+                                                            <VBox layoutX="14.0" layoutY="-80.0" prefHeight="485.0" prefWidth="163.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                               <children>
+                                                                  <Label text="Text relations" VBox.vgrow="ALWAYS">
+                                                                     <padding>
+                                                                        <Insets bottom="2.0" left="5.0" top="2.0" />
+                                                                     </padding>
+                                                                  </Label>
+                                                                  <AnchorPane>
+                                                                     <children>
+                                                                        <StackPane prefWidth="248.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                           <children>
+                                                                              <ListView fx:id="lvTextRelations" />
+                                                                              <ProgressIndicator fx:id="piTextIO" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" prefHeight="30.0" prefWidth="30.0" visible="false" />
+                                                                           </children>
+                                                                        </StackPane>
+                                                                     </children>
+                                                                  </AnchorPane>
+                                                                  <Label fx:id="lblTextInfo" VBox.vgrow="NEVER" />
+                                                               </children>
+                                                            </VBox>
+                                                         </children>
+                                                      </AnchorPane>
+                                                   </items>
+                                                </SplitPane>
+                                             </content>
+                                          </TitledPane>
+                                       </items>
+                                    </SplitPane>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="Experiments">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
+         </children>
+      </AnchorPane>
+   </center>
+   <left>
+      <AnchorPane BorderPane.alignment="CENTER">
+         <children>
+            <TitledPane animated="false" collapsible="false" prefHeight="540.0" prefWidth="271.0" text="Service Explorer" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <content>
+                  <AnchorPane>
+                     <children>
+                        <VBox prefHeight="589.0" prefWidth="269.0" spacing="2.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <HBox spacing="3.0" VBox.vgrow="NEVER">
+                                 <children>
+                                    <TextField fx:id="tfOwlstcPath" promptText="OWLS Directory" HBox.hgrow="ALWAYS" />
+                                    <Button fx:id="btnLoadServices" mnemonicParsing="false" onAction="#loadServiceList" text="↵" />
+                                 </children>
+                              </HBox>
+                              <TitledPane text="Filters">
+                                <content>
+                                  <AnchorPane>
+                                       <children>
+                                          <VBox layoutX="31.0" layoutY="-72.0" spacing="3.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
+                                                <TextField fx:id="tfSearch" promptText="Search" />
+                                                <CheckBox fx:id="ckbSLFiltersameOnto" mnemonicParsing="false" onAction="#onCheckedServiceFilter" text="I/O from the same ontology" VBox.vgrow="NEVER" />
+                                                <CheckBox fx:id="chkbSLFilterAtLeast" mnemonicParsing="false" onAction="#onCheckedServiceFilter" text="At least 1 Input &amp; 1 Output" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                </content>
+                              </TitledPane>
+                              <StackPane VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <ListView fx:id="lvServices" onKeyPressed="#onServiceListKeyPressed" onMouseClicked="#onServiceListClicked" />
+                                    <ProgressIndicator fx:id="piServiceList" maxHeight="50.0" maxWidth="50.0" minHeight="50.0" minWidth="50.0" prefHeight="50.0" prefWidth="50.0" progress="0.0" visible="false" StackPane.alignment="CENTER" />
+                                 </children>
+                              </StackPane>
+                              <Label fx:id="lblServiceListCount" VBox.vgrow="NEVER">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </TitledPane>
+         </children>
+      </AnchorPane>
+   </left>
+</BorderPane>
