@@ -15,16 +15,30 @@ Then
 ```
 mvn install
 ```
-After that you can launch the app from the runnable jar.
+After that you can launch the app from the runnable jar. double click or:
+```
+cd target
+java -jar sde-0.1.jar
+```
+## Quick Guide
+
+To use the app, refer to the steps in the following figure:
+
+![Tutorial Image](https://raw.githubusercontent.com/amouhoub/ServiceDescriptionEnrichment/master/tutorial.png)
+
 
 ### config.properties
 
 The required URLs for our word2vec API endpoint (hosted somewhere warm) and for the OWLS-TCv4 ontologies SPARQL endpoint are set by default in the config.properties file. Only modify them if you have your own mirror of our word2vec API or if we have provided you with mirror links.
 
-### Publications
+## Publications
 
-For more details, please check our paper at COOPIS2017:
+For more details, please check our paper at COOPIS2017 (to appear by Novermber 2017):
 
 "Towards an Automatic Enrichment of Semantic Web Services Descriptions"
 
 Mohamed LAmine Mouhoub, Daniela Grigori, Maude Manouvrier
+
+Book:On the Move to Meaningful Internet Systems. OTM 2017 Conferences 
+Chapter No: 43 
+Chapter DOI:10.1007/978-3-319-69462-7_43
