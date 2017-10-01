@@ -48,6 +48,15 @@
 				</executions>
 			</plugin>
 
+			<!-- Plugin to copy some resources to a custom destination folder, not 
+				needed for the moment -->
+			<!--plugin> <artifactId>maven-resources-plugin</artifactId> <version>3.0.2</version> 
+				<executions> <execution> <id>copy-resources</id> <phase>prepare-package</phase> 
+				<goals> <goal>copy-resources</goal> </goals> <configuration> <outputDirectory>${project.build.directory}/resources/OWLS-TC4/htdocs/services/1.1/</outputDirectory> 
+				<resources> <resource> <directory>${project.basedir}/src/main/resources/fr/dauphine/sde/OWLS-TC4/</directory> 
+				<filtering>true</filtering> </resource> </resources> </configuration> </execution> 
+				</executions> </plugin -->
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
@@ -61,7 +70,6 @@
 					</archive>
 				</configuration>
 			</plugin>
-
 
 		</plugins>
 	</build>
@@ -181,8 +189,6 @@
 			<artifactId>xml-apis</artifactId>
 			<version>1.4.01</version>
 		</dependency>
-
-
 
 	</dependencies>
 

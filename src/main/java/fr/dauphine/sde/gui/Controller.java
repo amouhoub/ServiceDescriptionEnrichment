@@ -5,7 +5,6 @@ import java.net.URL;
 import java.util.Collection;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.fxmisc.richtext.InlineCssTextArea;
@@ -241,6 +240,7 @@ public class Controller implements Initializable {
 		} else {
 			System.out.println("directory is not a directory : " + directory.getAbsolutePath());
 		}
+
 		lblServiceListCount.setText("#" + serviceNamesList.size());
 	}
 
@@ -561,12 +561,13 @@ public class Controller implements Initializable {
 		lvOntoRelations.setItems(dOntoRelsList);
 
 		dSimilarityMethodsList = FXCollections.observableArrayList();
-		dOntoEndpointsList = FXCollections.observableArrayList("http://localhost:3030/ds/query",
-				"http://dbpedia.org/sparql");
+		dOntoEndpointsList = FXCollections.observableArrayList(Params.ONTOLOGY_ENDPOINT,
+				"http://localhost:3030/ds/query", "http://dbpedia.org/sparql");
 		cmbSparqlEndpoint.setItems(dOntoEndpointsList);
 		cmbSparqlEndpoint.getSelectionModel().select(0);
-		
+
 		tfWord2vecAPIURL.setText(Params.WORD2VEC_API_URL);
+		// OWLSTC_DIR = tfOwlstcPath.getText();
 
 		sldrThreshold.valueProperty()
 				.addListener((ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
@@ -584,12 +585,15 @@ public class Controller implements Initializable {
 		rdbDomRngPattern.setUserData(false);
 		rdbOwlstcPattern.setUserData(true);
 
-		tfOwlstcPath.setText(getClass().getResource(Params.OWLSTC_DIRECTORY).getFile());
+		// tfOwlstcPath.setText(getClass().getResource(Params.OWLSTC_DIRECTORY).getFile());
+		// tfOwlstcPath.setText(getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath()+Params.OWLSTC_DIRECTORY);
+
+		tfOwlstcPath.setText(Params.OWLSTC_DIRECTORY);
 		loadServiceList();
 		filteredServiceList = new FilteredList<>(serviceNamesList, s -> true);
 		lvServices.setItems(filteredServiceList);
 
-		//extractor = new RelationsExtractor();
+		// extractor = new RelationsExtractor();
 
 		extractorOnto = new ExtractionOntoService(this);
 		extractorIOText = new ExtractionIOTextService(this);

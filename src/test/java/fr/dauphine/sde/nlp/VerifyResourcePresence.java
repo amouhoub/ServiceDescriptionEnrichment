@@ -9,25 +9,24 @@ import java.util.Properties;
 import org.junit.Test;
 
 import fr.dauphine.sde.gui.Main;
-import fr.dauphine.sde.model.Params;
 
 public class VerifyResourcePresence {
 
 	/**
 	 * Verify if the OWLS-TCv4 folder is present
 	 */
-	@Test
-	public void verifyOWLSTCDirectory() {
-		assertNotNull("OWLS-TC Directory not found", getClass().getResource(Params.OWLSTC_DIRECTORY).getFile());
-	}
+	//@Test
+	//public void verifyOWLSTCDirectory() {
+	//	assertNotNull("OWLS-TC Directory not found", getClass().getResource(Params.OWLSTC_DIRECTORY).getFile());
+	//}
 
 	/**
 	 * Verify if the annotations file is present
 	 */
-	@Test
-	public void verifyOWLSTCAnnotations() {
-		assertNotNull("Annotations file not found", getClass().getResource(Params.OWLSTC_ANNOTATIONS_PATH).getFile());
-	}
+	//@Test
+	//public void verifyOWLSTCAnnotations() {
+	//	assertNotNull("Annotations file not found", getClass().getResource(Params.OWLSTC_ANNOTATIONS_PATH).getFile());
+	//}
 
 	/**
 	 * Verify the existence and integrity of the config.properties file . It is

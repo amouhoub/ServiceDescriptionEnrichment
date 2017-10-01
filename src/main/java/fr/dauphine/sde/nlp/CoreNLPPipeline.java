@@ -58,7 +58,7 @@ public class CoreNLPPipeline {
 	public CoreNLPPipeline(boolean owlsTC) {
 		if (owlsTC) {
 			// pipeline = defaultPipeline();
-			//if(Params.OWLSTC_ANNOTATIONS_PATH)
+			// if(Params.OWLSTC_ANNOTATIONS_PATH)
 			OWLSTC = fstload(Params.OWLSTC_ANNOTATIONS_PATH);
 			if (OWLSTC == null) {
 				pipeline = defaultPipeline();
@@ -109,7 +109,7 @@ public class CoreNLPPipeline {
 		System.out.println("Processing OWLS-TC through the default pipeline");
 		long startTime = System.nanoTime();
 		HashMap<String, Annotation> result = new HashMap<>();
-		File directory = new File(getClass().getResource(owlstcDirectory).getFile());
+		File directory = new File(owlstcDirectory);
 		Collection<File> files = FileUtils.listFiles(directory, OWLSExtractor.EXTENSIONS, false);
 		for (File file : files) {
 			Annotation current = new Annotation(OWLSExtractor.getTextDescription(file));
@@ -164,11 +164,10 @@ public class CoreNLPPipeline {
 	private HashMap<String, Annotation> fstload(String path) {
 		long startTime = System.nanoTime();
 		System.out.println("FST: Loading OWLS-TC annotations");
-		System.out.println("---" +getClass().getResource(Params.OWLSTC_ANNOTATIONS_PATH).toString());
+		System.out.println("---" + getClass().getResource(Params.OWLSTC_ANNOTATIONS_PATH).toString());
 		HashMap<String, Annotation> loadedAnnotations = null;
 		// new FileInputStream(path)
-		try (FSTObjectInput in = new FSTObjectInput(
-				new BufferedInputStream(getClass().getResourceAsStream(path)));) {
+		try (FSTObjectInput in = new FSTObjectInput(new BufferedInputStream(getClass().getResourceAsStream(path)));) {
 			loadedAnnotations = (HashMap<String, Annotation>) in.readObject(HashMap.class);
 			in.close();
 		} catch (Exception e) {

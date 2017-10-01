@@ -78,7 +78,6 @@ public class OWLSExtractor {
 
 	private Map<String, Triple<List<String>, List<String>, String>> extractAllFromDirectory(File owlsDirectory,
 			Boolean localNames) {
-		// File owlsDirectory = new File(OWLSTC_SERVICES_DIRECTORY);
 		Map<String, Triple<List<String>, List<String>, String>> result = new HashMap<>();
 		Collection<File> files = FileUtils.listFiles(owlsDirectory, EXTENSIONS, false);
 		for (File file : files) {
